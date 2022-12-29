@@ -1,22 +1,16 @@
+import { GenerateInstructionsFromCSV, RenderInstruction } from "../Utilities/RenderingHelpers";
 import { ShiftVal } from "../Utilities/TranslationHelpers";
 import { CellColor, DefaultCellColor } from "./CellColor";
 import { GridCell } from "./GridCell";
 import { GridEntity } from "./GridEntity";
 
-class RenderInstruction {
-    moveX: number;
-    moveY: number;
-    color: CellColor;
-    constructor(x: number, y: number, color: CellColor) {
-        this.moveX = x;
-        this.moveY = y;
-        this.color = color;
-    }
-}
 
 class Glyph extends GridEntity {
+    renderingInstructions: RenderInstruction[];
     constructor(x: number, y: number) {
         super(x, y);
+        this.renderingInstructions = GenerateInstructionsFromCSV()
+
     }
     private _createCell(color: CellColor): GridCell {
         return new GridCell(this.X, this.Y, color);
@@ -34,7 +28,7 @@ class Glyph extends GridEntity {
             new RenderInstruction(-1, 0, blue),
             new RenderInstruction(0, 1, yellow),
             new RenderInstruction(0, -1, purple)]
-        instructions.forEach((instruction: RenderInstruction) => {
+        this.renderingInstructions.forEach((instruction: RenderInstruction) => {
             let cell = this._createCell(clear ? DefaultCellColor : instruction.color)
             cell.Translate(state, instruction.moveX, instruction.moveY);
             state[cell.Y][cell.X] = cell;
@@ -54,3 +48,4 @@ class Glyph extends GridEntity {
 }
 
 export { Glyph }
+

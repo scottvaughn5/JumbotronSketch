@@ -8,9 +8,9 @@ import ICoordinate from "../Interface/ICoordinate";
 const ShiftVal = (min:number, max:number, num:number) =>{
     // if it goes outside the minimum range then go to the max
     if(num < min ){
-        return max - 1;
+        return max - (1 + (max - num));
     }else if(num >= max){
-        return min;
+        return min + (num - max);
     }else{
         return num;
     }

@@ -15,10 +15,10 @@ interface IGridState {
 }
 
 const Grid = () => {
-    const [getGridState, setGridState] = React.useState<IGridState>({ matrix: MatrixFactory(30, 60), glyph: new Glyph(30, 15) });
+    const [getGridState, setGridState] = React.useState<IGridState>({ matrix: MatrixFactory(50, 80), glyph: new Glyph(30, 10) });
     useInterval(() => {
-        setGridState(TranslateCell([...getGridState.matrix], getGridState.glyph, 1, -1))
-    }, 100)
+        setGridState(TranslateCell([...getGridState.matrix], getGridState.glyph, -1, 1))
+    }, 1)
     return (
         <table>
             <GridRows matrix={getGridState.matrix} />
