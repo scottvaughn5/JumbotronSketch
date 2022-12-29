@@ -1,5 +1,6 @@
 import { CellColor, DefaultCellColor } from "../GridState/CellColor";
 import { GridCell } from "../GridState/GridCell";
+import { GridEntity } from "../GridState/GridEntity";
 import ICoordinate from "../Interface/ICoordinate";
 
 
@@ -16,26 +17,13 @@ const ShiftVal = (min:number, max:number, num:number) =>{
 }
 
 
-const ModifyGridState = (state: any, glyph: GridCell) => {
-    state[glyph.Y][glyph.X] = glyph;
-    return state;
-}
 
-
-
-const NewPoint = (state: any, x: number, y: number, cellX: number, cellY: number): ICoordinate  => {
-    let newX = ShiftVal(0, state[0].length, cellX + x);
-    let newY = ShiftVal(0, state.length, cellY + y);
-    return { x: newX, y: newY }
-}
-
-const TranslateCell = (state: any, glyph: GridCell, x: number, y: number) => {
+const TranslateCell = (state: GridEntity[][], glyph: GridEntity, x: number, y: number) => {
     glyph.Clear(state);
-    const point = NewPoint(state, x, y, glyph.X, glyph.Y);
-    let newCell = new GridCell(point.x, point.y, glyph.Color);
-    newCell.Draw(state);
-    return { glyph: newCell, matrix: state };
+    glyph.Translate(state, x, y)
+    glyph.Draw(state);
+    return { glyph: glyph, matrix: state };
 }
 
 
-export {ShiftVal, ModifyGridState, NewPoint, TranslateCell }
+export {ShiftVal, TranslateCell }

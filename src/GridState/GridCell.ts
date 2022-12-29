@@ -1,3 +1,5 @@
+import ICoordinate from "../Interface/ICoordinate";
+import { ShiftVal } from "../Utilities/TranslationHelpers";
 import { CellColor, DefaultCellColor } from "./CellColor";
 import { GridEntity } from "./GridEntity";
 
@@ -5,10 +7,10 @@ interface IGridCell {
 
 }
 
-class GridCell extends GridEntity{
+class GridCell extends GridEntity {
     Color: CellColor;
     constructor(x: number, y: number, color: CellColor) {
-        super(x,y);
+        super(x, y);
         this.Color = color;
     }
     Clear(state: GridEntity[][]): GridEntity[][] {
